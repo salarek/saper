@@ -27,15 +27,12 @@
     <v-main>
       <div class="con">
         <center>
+          <v-btn @click="sendMessage" color="error" dark large>wyslij wiadomosc</v-btn>
           <h1>{{ message }}</h1>
-          <v-btn @click="createBoard" color="error" dark large
-            >Stworz tablice</v-btn
-          >
+          <v-btn @click="createBoard" color="error" dark large>Stworz tablice</v-btn>
           <br />
           <br />
-          <v-btn @click="startGame = !startGame" color="error" dark large
-            >Graj</v-btn
-          >
+          <v-btn @click="startGame = !startGame" color="error" dark large>Graj</v-btn>
         </center>
         <br />
         <div v-if="startGame">
@@ -68,7 +65,7 @@
 import io from "socket.io-client";
 export default {
   props: {
-    source: String,
+    source: String
   },
   data: () => ({
     message: "",
@@ -76,9 +73,12 @@ export default {
     drawer: null,
     startGame: false,
     boardSize: 10,
-    board: [],
+    board: []
   }),
   methods: {
+    sendMessage() {
+      this.socket.emit("msg", "jebac disa skurwysyna");
+    },
     createBoard() {
       for (let i = 0; i < this.boardSize; i++) {
         this.board[i] = new Array();
@@ -92,7 +92,7 @@ export default {
             bombActive: false,
             otherBombs: 0,
             showOtherBombs: "",
-            check: "",
+            check: ""
           };
         }
       }
@@ -138,7 +138,7 @@ export default {
         }
       }
     },
-    handler: function (item) {
+    handler: function(item) {
       this.startGame = !this.startGame;
       this.startGame = !this.startGame;
       if (item.check == "x") {
@@ -415,7 +415,7 @@ export default {
           }
         }
       }
-    },
+    }
   },
   created() {
     const port = process.env.PORT || 3000;
@@ -424,10 +424,10 @@ export default {
     //this.socket = io("http://localhost:3000");
   },
   mounted() {
-    this.socket.on("msg", (msg) => {
+    this.socket.on("msg", msg => {
       this.message = msg;
     });
-  },
+  }
 };
 </script>
 <style>
