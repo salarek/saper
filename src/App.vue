@@ -418,7 +418,6 @@ export default {
     }
   },
   created() {
-    const port = process.env.PORT || 3000;
     this.$vuetify.theme.dark = true;
     this.socket = io(`${window.location.hostname}`);
     //this.socket = io("http://localhost:3000");
